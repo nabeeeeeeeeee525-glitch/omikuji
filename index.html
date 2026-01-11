@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:title" content="おみくじ">
+  <meta property="og:description" content="今日の運勢を占ってみよう！">
+  <meta property="og:image" content="https://lustrous-dolphin-b26064.netlify.app/omikuji.png">
+  <meta property="og:url" content="https://lustrous-dolphin-b26064.netlify.app/">
+  <meta property="og:type" content="website">
+  <meta charset="UTF-8">
+  <title>おみくじ</title>
+  <style>
+    body { 
+      font-family: sans-serif; 
+      text-align: center; 
+      margin-top: 80px; 
+    }
+    button { 
+      padding: 10px 20px; 
+      font-size: 18px; 
+      cursor: pointer;
+    }
+    #result { 
+      margin-top: 40px; 
+      font-size: 32px; 
+      font-weight: bold; 
+    }
+  </style>
+</head>
+<body>
+
+  <h1>おみくじ</h1>
+  <button onclick="draw()">おみくじを引く</button>
+
+  <div id="result"></div>
+
+<a id="tweet" href="#" target="_blank"
+   style="display:none; margin-top:30px; font-size:18px; display:block;">
+  Xでツイートする
+</a>
+
+
+  <script>
+    const results = [
+    { name: "大めいだい", comment: "今日は何をしてもうまくいく！思い切ってめいだいと行動してみよう。" },
+    { name: "中めいだい", comment: "まずまずのめいだい。焦らず一歩ずつ進もう。" },
+    { name: "小めいだい", comment: "小さなめいだいが見つかる日。周囲に目を向けてみて。" },
+    { name: "めいだい",   comment: "穏やかなめいだい。めいだいとのつながりを大切に。" },
+    { name: "末めいだい", comment: "運気はこれから上昇。めいだいはヒゲを整えておこう。" },
+    { name: "凶めいだい",   comment: "めいだいと行動すれば回避できる。無理は禁物。" },
+    { name: "大凶めいだい", comment: "今日はめいだいと過ごすのが吉。めいだいをいたわって。" }
+
+    ];
+
+function draw() {
+  const r = Math.floor(Math.random() * results.length);
+  const result = results[r];
+
+  document.getElementById("result").innerHTML = `
+    <div style="font-size: 32px; font-weight: bold;">${result.name}</div>
+    <div style="margin-top: 20px; font-size: 20px; color: #555;">${result.comment}</div>
+  `;
+
+  // ② ツイート処理
+  const tweetText = encodeURIComponent(`今日のおみくじは「${result.name}」！\n${result.comment}\n#おみくじ`);
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+  const tweetLink = document.getElementById("tweet");
+  tweetLink.href = tweetUrl;
+  tweetLink.style.display = "block";
+}
+
+  </script>
+
+</body>
+</html>
